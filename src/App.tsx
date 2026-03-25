@@ -1,9 +1,16 @@
+import { MemoryRouter, NavLink, Route, Routes } from "react-router-dom";
+import Dashboard from "./pages/Dashboard";
+import Entities from "./pages/Entities";
+import Lore from "./pages/Lore";
+import Timeline from "./pages/Timeline";
+import World from "./pages/World";
+
 const NAV_ITEMS = [
-  { icon: "⬡", label: "Dashboard" },
-  { icon: "🌍", label: "World" },
-  { icon: "📖", label: "Lore" },
-  { icon: "👤", label: "Entities" },
-  { icon: "⏳", label: "Timeline" },
+  { icon: "⬡", label: "Dashboard", to: "/"         },
+  { icon: "🌍", label: "World",     to: "/world"    },
+  { icon: "📖", label: "Lore",      to: "/lore"     },
+  { icon: "👤", label: "Entities",  to: "/entities" },
+  { icon: "⏳", label: "Timeline",  to: "/timeline" },
 ];
 
 function Sidebar() {
@@ -11,11 +18,18 @@ function Sidebar() {
     <aside className="sidebar">
       <div className="sidebar-logo">AFW</div>
       <nav className="sidebar-nav">
-        {NAV_ITEMS.map(({ icon, label }) => (
-          <div key={label} className="nav-item">
+        {NAV_ITEMS.map(({ icon, label, to }) => (
+          <NavLink
+            key={label}
+            to={to}
+            end={to === "/"}
+            className={({ isActive }) =>
+              "nav-item" + (isActive ? " nav-item--active" : "")
+            }
+          >
             <span className="nav-icon">{icon}</span>
             <span className="nav-label">{label}</span>
-          </div>
+          </NavLink>
         ))}
       </nav>
     </aside>
@@ -38,18 +52,23 @@ function Topbar() {
 
 function App() {
   return (
-    <div className="layout">
-      <Sidebar />
-      <div className="layout-right">
-        <Topbar />
-        <main className="content">
-          <div className="placeholder">
-            <h2>No world selected</h2>
-            <p>Open or create a world to begin building.</p>
-          </div>
-        </main>
+    <MemoryRouter initialEntries={["/"]}>
+      <div className="layout">
+        <Sidebar />
+        <div className="layout-right">
+          <Topbar />
+          <main className="content">
+            <Routes>
+              <Route path="/"         element={<Dashboard />} />
+              <Route path="/world"    element={<World />}     />
+              <Route path="/lore"     element={<Lore />}      />
+              <Route path="/entities" element={<Entities />}  />
+              <Route path="/timeline" element={<Timeline />}  />
+            </Routes>
+          </main>
+        </div>
       </div>
-    </div>
+    </MemoryRouter>
   );
 }
 

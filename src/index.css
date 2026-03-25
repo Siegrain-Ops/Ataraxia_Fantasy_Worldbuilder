@@ -72,15 +72,31 @@ body {
   gap: 0.65rem;
   padding: 0.55rem 1.25rem;
   color: var(--muted);
-  cursor: default;
-  border-radius: 0;
+  cursor: pointer;
   user-select: none;
+  text-decoration: none;
+  transition: background 0.1s, color 0.1s;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+}
+
+.nav-item--active {
+  color: var(--accent);
+  background: rgba(139, 111, 199, 0.12);
+}
+
+.nav-item--active:hover {
+  background: rgba(139, 111, 199, 0.18);
 }
 
 .nav-icon {
   font-size: 1rem;
   width: 1.25rem;
   text-align: center;
+  flex-shrink: 0;
 }
 
 .nav-label {
@@ -124,26 +140,23 @@ body {
 .content {
   flex: 1;
   overflow-y: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
 }
 
-.placeholder {
-  text-align: center;
+/* ── Page stubs ──────────────────────────────────────────── */
+.stub-page {
+  padding: 2.5rem 2rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
-.placeholder h2 {
-  font-size: 1.15rem;
-  font-weight: 500;
+.stub-page h1 {
+  font-size: 1.3rem;
+  font-weight: 600;
   color: var(--text);
 }
 
-.placeholder p {
+.stub-page p {
   font-size: 0.875rem;
   color: var(--muted);
 }
